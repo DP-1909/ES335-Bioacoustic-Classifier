@@ -44,11 +44,11 @@
           on 760 five-second recordings across 19 ESC-50 wildlife and natural soundscape categories.
         </p>
 
-        <!-- Authors (Bikram Maurya First) -->
+        <!-- Authors (Bikram Maurya First + Exact Emails) -->
         <div class="author-row">
           <div class="author-item">
             <strong>Bikram Maurya</strong> <span class="roll-num">24110077</span>
-            <a href="mailto:24110077@iitgn.ac.in">24110077@iitgn.ac.in</a>
+            <a href="mailto:bikram.maurya@iitgn.ac.in">bikram.maurya@iitgn.ac.in</a>
           </div>
           <div class="author-item">
             <strong>Dev Kaushik Panchal</strong> <span class="roll-num">24110101</span>
@@ -56,14 +56,14 @@
           </div>
         </div>
 
-        <!-- Direct Action Links -->
+        <!-- Direct Action Links (GitHub Repo + Google Colab + Interactive Lab) -->
         <div class="hero-actions">
           <a href="https://github.com/DP-1909/ES335-Bioacoustic-Classifier" target="_blank" rel="noopener" class="btn btn-primary">
             <svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
             GitHub Repository
           </a>
-          <a href="https://github.com/DP-1909/ES335-Bioacoustic-Classifier/blob/main/ml_project.ipynb" target="_blank" rel="noopener" class="btn btn-secondary">
-            Jupyter Notebook
+          <a href="https://colab.research.google.com/drive/14B-Nmj8uBAKvaXA5gN1hlQxYnRp_NM6H?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary">
+            Google Colab Notebook
           </a>
           <a href="#interactive" class="btn btn-dashed">Open Interactive Audio &amp; Model Lab &darr;</a>
         </div>
@@ -468,9 +468,9 @@
           <div class="card">
             <h3>Step-by-Step Reproducibility Guide</h3>
             <ul class="clean-list">
-              <li><strong>1. Clone Repository:</strong> <code>git clone https://github.com/DP-1909/ES335-Bioacoustic-Classifier.git</code></li>
+              <li><strong>1. Interactive Colab Notebook:</strong> Open our <a href="https://colab.research.google.com/drive/14B-Nmj8uBAKvaXA5gN1hlQxYnRp_NM6H?usp=sharing" target="_blank" rel="noopener">Google Colab Notebook (View Mode)</a> or clone <code>https://github.com/DP-1909/ES335-Bioacoustic-Classifier.git</code>.</li>
               <li><strong>2. Dataset &amp; Split Setup:</strong> Download <a href="https://github.com/karolpiczak/ESC-50" target="_blank" rel="noopener">ESC-50</a> (<code>meta/esc50.csv</code> + <code>audio/</code>), filter the $19$ target categories ($760\text{ clips}$), and preserve the predefined <code>fold</code> column ($1\text{–}5$) for leak-free nested CV.</li>
-              <li><strong>3. Run Pipeline:</strong> Execute <code>ml_project.ipynb</code> (Python 3.10+, <code>librosa</code>, <code>scikit-learn</code>, <code>numpy</code>, <code>pandas</code>) to extract the $17$ features, run 5-fold nested <code>GridSearchCV</code>, and export <code>site_data.json</code> &amp; <code>models_export.json</code>.</li>
+              <li><strong>3. Run Pipeline:</strong> Execute the notebook (Python 3.10+, <code>librosa</code>, <code>scikit-learn</code>, <code>numpy</code>, <code>pandas</code>) to extract the $17$ features, run 5-fold nested <code>GridSearchCV</code>, and export <code>site_data.json</code> &amp; <code>models_export.json</code>.</li>
               <li><strong>4. Local Server:</strong> Run <code>python -m http.server 8000</code> in the root directory and open <code>http://localhost:8000</code>.</li>
             </ul>
           </div>
@@ -491,7 +491,7 @@
   <footer class="footer">
     <div class="container footer-inner">
       <span>ES 335: Machine Learning &bull; IIT Gandhinagar &bull; Bikram Maurya &amp; Dev Kaushik Panchal</span>
-      <span><a href="https://github.com/DP-1909/ES335-Bioacoustic-Classifier" target="_blank" rel="noopener">GitHub Repository</a> &bull; 100% Client-Side Inference</span>
+      <span><a href="https://github.com/DP-1909/ES335-Bioacoustic-Classifier" target="_blank" rel="noopener">GitHub Repository</a> &bull; <a href="https://colab.research.google.com/drive/14B-Nmj8uBAKvaXA5gN1hlQxYnRp_NM6H?usp=sharing" target="_blank" rel="noopener">Google Colab</a></span>
     </div>
   </footer>
 
