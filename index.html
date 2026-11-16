@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BioAcoustic Classifier | ES 335 Machine Learning Project</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#top" class="brand">
+        <span class="brand-badge">ES 335</span>
+        <span>BioAcoustic ESC-50</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#dataset">Dataset &amp; Features</a>
+        <a href="#interactive">Interactive Lab</a>
+        <a href="#models">Models &amp; Tuning</a>
+        <a href="#results">Results &amp; Errors</a>
+        <a href="#team">Takeaways &amp; Team</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="pill">IIT Gandhinagar &bull; ES 335 Machine Learning &bull; Group 31</div>
+          <h1>Automated Wildlife &amp; Environmental Sound Classification</h1>
+          <p class="lead">
+            An end-to-end bioacoustic machine learning pipeline classifying <strong>760 five-second recordings</strong> across
+            <strong>19 wildlife and natural soundscape categories</strong> from the ESC-50 dataset using 17 spectral and cepstral
+            features, leak-free 5-fold nested cross-validation, and live browser-side inference across Logistic Regression,
+            RBF-kernel SVM, and Random Forest.
+          </p>
+          <div class="hero-actions">
+            <a href="#interactive" class="btn btn-primary">Launch Interactive Audio &amp; Feature Lab</a>
+            <a href="#results" class="btn btn-secondary">Inspect Nested CV Metrics</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h3>Key Experimental Highlights</h3>
+          <div class="kpi-grid">
+            <div class="kpi">
+              <span class="kpi-val">760</span>
+              <span class="kpi-label">ESC-50 Audio Clips (5s each)</span>
+            </div>
+            <div class="kpi">
+              <span class="kpi-val">19</span>
+              <span class="kpi-label">Balanced Classes (40/class)</span>
+            </div>
+            <div class="kpi">
+              <span class="kpi-val">17</span>
+              <span class="kpi-label">Librosa Acoustic Features</span>
+            </div>
+            <div class="kpi">
+              <span class="kpi-val" id="hero-best-f1">56.68%</span>
+              <span class="kpi-label">Best Macro-F1 (SVM-RBF)</span>
+            </div>
+          </div>
+          <p class="hero-note">
+            Evaluated with strict <strong>5-fold nested cross-validation</strong> preserving original ESC-50 predefined folds so takes from the same source recording never leak across train and test splits.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. Problem Statement & Motivation -->
+    <section id="overview" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">01 &bull; Problem Statement &amp; Motivation</span>
+          <h2>Why Classical Acoustic Feature Engineering Matters for Biodiversity Monitoring</h2>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Ecological Motivation</h3>
+            <p>
+              Passive acoustic monitoring enables non-invasive tracking of wildlife populations (birds, amphibians, insects, mammals)
+              and weather events (rain, wind, thunderstorms) across remote habitats without continuous human field presence.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Core Classification Task</h3>
+            <p>
+              Given a 5-second environmental audio clip <em>x</em>, predict its discrete acoustic source class
+              <em>y &isin; {1, &dots;, 19}</em> using compact summary statistics extracted from time-frequency representations.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Why Compare Linear, Kernel &amp; Tree Models?</h3>
+            <p>
+              Acoustic classes exhibit non-linear spectral overlaps (e.g., <em>rain</em> vs. <em>pouring_water</em> vs. <em>sea_waves</em>).
+              Comparing Logistic Regression, RBF-SVM, and Random Forest reveals how decision-boundary geometry affects multi-class separability.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Dataset, Preprocessing & Feature Extraction -->
+    <section id="dataset" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">02 &bull; Dataset &amp; 17-Feature Pipeline</span>
+          <h2>Curated ESC-50 Wildlife &amp; Nature Subset</h2>
+          <p>
+            From the 2,000 recordings in Karol Piczak's <a href="https://github.com/karolpiczak/ESC-50" target="_blank" rel="noopener">ESC-50 dataset</a>,
+            we curated all <strong>19 wildlife and natural environment classes</strong> (40 clips per class = 760 clips; 8 clips per class in each of the 5 predefined folds; zero missing or duplicate rows).
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>19 Target Sound Categories (40 Clips Each)</h3>
+            <div class="tag-group">
+              <div class="tag-row">
+                <span class="tag-heading">Wildlife &amp; Animals (10):</span>
+                <span class="tag">dog</span><span class="tag">rooster</span><span class="tag">pig</span>
+                <span class="tag">cow</span><span class="tag">frog</span><span class="tag">cat</span>
+                <span class="tag">hen</span><span class="tag">insects</span><span class="tag">sheep</span>
+                <span class="tag">crow</span>
+              </div>
+              <div class="tag-row">
+                <span class="tag-heading">Birds, Insects &amp; Nature (9):</span>
+                <span class="tag">chirping_birds</span><span class="tag">crickets</span><span class="tag">rain</span>
+                <span class="tag">sea_waves</span><span class="tag">crackling_fire</span><span class="tag">water_drops</span>
+                <span class="tag">wind</span><span class="tag">pouring_water</span><span class="tag">thunderstorm</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>17 Extracted Acoustic Features (<code>librosa</code>)</h3>
+            <ul class="clean-list">
+              <li><strong>Features 1–13 (MFCC 1–13):</strong> Mean Mel-Frequency Cepstral Coefficients capturing vocal tract / timbral envelope across perceptual Mel bands.</li>
+              <li><strong>Feature 14 (Spectral Centroid):</strong> Mean center-of-mass of the magnitude spectrum in Hz (perceptual brightness).</li>
+              <li><strong>Feature 15 (Spectral Bandwidth):</strong> Mean spread of frequencies around the centroid in Hz (tonal vs. broadband noise).</li>
+              <li><strong>Feature 16 (Zero-Crossing Rate):</strong> Mean sign-change rate of the time-domain waveform (percussive / high-frequency energy).</li>
+              <li><strong>Feature 17 (RMS Energy):</strong> Mean root-mean-square frame amplitude capturing overall loudness dynamics.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- EDA & Feature Importance Visuals -->
+        <div class="grid-2 mt-24">
+          <div class="card">
+            <div class="card-top">
+              <h3>2D PCA Feature Space (42.87% Variance Retained)</h3>
+              <select id="pca-highlight" class="select-sm">
+                <option value="all">Highlight: All 19 Categories</option>
+              </select>
+            </div>
+            <p class="muted-sm">
+              Standardized 17-D features projected onto PC1 (26.38%) and PC2 (16.49%). Hover or filter categories to inspect cluster overlap.
+            </p>
+            <div class="canvas-wrap">
+              <canvas id="pca-canvas" width="620" height="390"></canvas>
+            </div>
+            <div id="pca-tooltip" class="pca-status">Hover over any point to inspect clip filename, fold, and PC coordinates.</div>
+          </div>
+
+          <div class="card">
+            <div class="card-top">
+              <h3>Random Forest Feature Importance</h3>
+              <span class="badge-mono">n_estimators = 200</span>
+            </div>
+            <p class="muted-sm">
+              Gini impurity importance across all 17 standardized/raw features learned by the tuned Random Forest ensemble.
+            </p>
+            <div id="fi-bars" class="fi-bars"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Interactive Audio & Live 3-Model Classifier Lab -->
+    <section id="interactive" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">03 &bull; Interactive Demo</span>
+          <h2>Live ESC-50 Audio &amp; Three-Model Classifier Lab</h2>
+          <p>
+            Select any of the <strong>19 real ESC-50 audio recordings</strong> to play the 5-second waveform, inspect its 17 extracted
+            features, view its location in 2D PCA space, or <strong>drag the feature sliders</strong> to test how
+            <strong>Logistic Regression</strong>, <strong>SVM (RBF)</strong>, and <strong>Random Forest</strong> respond in real time!
+          </p>
+        </div>
+
+        <div class="lab-grid">
+          <!-- Left: Clip Selector, Audio Player & Sliders -->
+          <div class="card">
+            <div class="card-top">
+              <h3>1. Select Clip &amp; Play Audio</h3>
+              <button id="reset-clip-btn" class="btn-xs" type="button">Reset Sliders to Clip</button>
+            </div>
+
+            <div class="player-controls">
+              <label for="clip-select" class="sr-only">Choose ESC-50 Sample Recording</label>
+              <select id="clip-select" class="select-full"></select>
+              <audio id="audio-player" controls preload="metadata" class="audio-el"></audio>
+              <div id="clip-meta" class="clip-meta"></div>
+            </div>
+
+            <h3 class="mt-20">2. Interactive 17-Feature Inspector &amp; Perturbation</h3>
+            <p class="muted-sm">
+              Adjust key acoustic descriptors below (or toggle all 17 features) to run live browser inference across all 3 trained models:
+            </p>
+            <div id="sliders-primary" class="sliders-grid"></div>
+            <details class="mt-12">
+              <summary class="summary-toggle">Show / Adjust Remaining MFCC Features (MFCC 5–13)</summary>
+              <div id="sliders-secondary" class="sliders-grid mt-12"></div>
+            </details>
+          </div>
+
+          <!-- Right: Live Predictions from All 3 Models Separately -->
+          <div class="card">
+            <div class="card-top">
+              <h3>3. Live Predictions (3 Models Separately)</h3>
+              <span id="model-status-badge" class="badge-mono">Loading models...</span>
+            </div>
+            <p class="muted-sm">
+              Every slider change runs exact matrix/kernel/tree inference in JavaScript using the exported parameters from <code>all_three_sound_classifiers.pkl</code>.
+            </p>
+
+            <div class="models-stack" id="predictions-container">
+              <!-- Logistic Regression Card -->
+              <div class="model-pred-card" id="pred-lr">
+                <div class="pred-header">
+                  <div>
+                    <span class="model-title">Logistic Regression (L2, C=1)</span>
+                    <span class="model-sub">Linear decision boundary on StandardScaler features</span>
+                  </div>
+                  <span class="pred-badge" id="lr-top-label">—</span>
+                </div>
+                <div class="top3-bars" id="lr-bars"></div>
+              </div>
+
+              <!-- SVM Card -->
+              <div class="model-pred-card model-pred-best" id="pred-svm">
+                <div class="pred-header">
+                  <div>
+                    <span class="model-title">Support Vector Machine (RBF, C=1, &gamma;=scale)</span>
+                    <span class="model-sub">One-vs-One RBF kernel margins (softmax normalized)</span>
+                  </div>
+                  <span class="pred-badge" id="svm-top-label">—</span>
+                </div>
+                <div class="top3-bars" id="svm-bars"></div>
+              </div>
+
+              <!-- Random Forest Card -->
+              <div class="model-pred-card" id="pred-rf">
+                <div class="pred-header">
+                  <div>
+                    <span class="model-title">Random Forest (200 Trees, min_samples_split=5)</span>
+                    <span class="model-sub">Ensemble class probability vote across 200 decision trees</span>
+                  </div>
+                  <span class="pred-badge" id="rf-top-label">—</span>
+                </div>
+                <div class="top3-bars" id="rf-bars"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Model Comparison & Nested Cross-Validation Setup -->
+    <section id="models" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">04 &bull; Methodology &amp; Hyperparameter Tuning</span>
+          <h2>Leak-Free 5-Fold Nested Cross-Validation</h2>
+          <p>
+            To prevent data leakage across related recordings, each outer iteration holds out 1 complete ESC-50 fold (152 clips) for testing while running inner 4-fold <code>GridSearchCV</code> (optimizing <strong>Macro-F1</strong>) on the remaining 4 folds (608 clips).
+          </p>
+        </div>
+
+        <div class="table-wrap card">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Model Family</th>
+                <th>Preprocessing</th>
+                <th>Tuned Hyperparameters</th>
+                <th>Overall Accuracy</th>
+                <th>Overall Macro-F1</th>
+                <th>Fold Macro-F1 Std</th>
+              </tr>
+            </thead>
+            <tbody id="metrics-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="card mt-24">
+          <h3>Fold-by-Fold Macro-F1 Stability (Outer Folds 1–5)</h3>
+          <p class="muted-sm">
+            Comparing generalization consistency across all five predefined ESC-50 folds. Fold 3 yields the highest separability across all three classifiers.
+          </p>
+          <div id="fold-chart" class="fold-chart"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Evaluation, Confusion Matrix & Error Analysis -->
+    <section id="results" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">05 &bull; Results &amp; Error Analysis</span>
+          <h2>19&times;19 Confusion Matrix &amp; Acoustic Failure Modes</h2>
+          <p>
+            Switch between <strong>SVM (RBF)</strong>, <strong>Random Forest</strong>, and <strong>Logistic Regression</strong> to inspect class-level recall (diagonal) and the most frequently confused sound pairs across all 760 outer-fold test predictions.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="tab-buttons" role="tablist">
+              <button class="tab-btn active" data-model="SVM" type="button">SVM (RBF) &mdash; 56.68% F1</button>
+              <button class="tab-btn" data-model="Random Forest" type="button">Random Forest &mdash; 50.74% F1</button>
+              <button class="tab-btn" data-model="Logistic Regression" type="button">Logistic Regression &mdash; 50.69% F1</button>
+            </div>
+            <div id="top-confusions" class="confusion-pills"></div>
+          </div>
+
+          <div class="cm-scroll mt-16">
+            <table id="cm-table" class="cm-table"></table>
+          </div>
+        </div>
+
+        <div class="grid-3 mt-24">
+          <div class="card">
+            <h3>1. Broadband Water &amp; Wind Overlap</h3>
+            <p>
+              Continuous broadband textures such as <strong>rain</strong>, <strong>pouring_water</strong>, <strong>sea_waves</strong>, and <strong>wind</strong> share stationary spectral envelopes, causing the largest share of off-diagonal confusions when temporal dynamics are averaged out.
+            </p>
+          </div>
+          <div class="card">
+            <h3>2. High-Frequency Stridulation &amp; Chirps</h3>
+            <p>
+              <strong>Crickets</strong>, <strong>insects</strong>, and <strong>chirping_birds</strong> concentrate energy above 3.5 kHz with elevated Zero-Crossing Rates, occasionally overlapping when background insect noise appears in bird recordings.
+            </p>
+          </div>
+          <div class="card">
+            <h3>3. Why RBF-SVM Outperforms Linear Baseline</h3>
+            <p>
+              Mapping standardized 17-D features into a non-linear Gaussian kernel space improves Macro-F1 by <strong>+5.99 percentage points</strong> over Logistic Regression (56.68% vs. 50.69%) and <strong>+5.94 points</strong> over Random Forest.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Limitations, Future Work & Team -->
+    <section id="team" class="section section-alt">
+      <div class="container">
+        <div class="grid-2">
+          <div class="card">
+            <span class="eyebrow">06 &bull; Limitations &amp; Next Steps</span>
+            <h2>Future Improvements</h2>
+            <ul class="clean-list">
+              <li><strong>Temporal Pooling:</strong> Clip-level mean pooling discards transient envelope bursts (e.g., individual <em>water_drops</em> vs. steady <em>rain</em>). Adding standard deviation, delta-MFCCs, and spectral contrast will capture temporal modulation.</li>
+              <li><strong>Log-Mel Spectrogram Representations:</strong> Pairing handcrafted features with 2D CNN embeddings (PANNs / YAMNet) can resolve broadband environmental textures.</li>
+              <li><strong>Probability Calibration:</strong> Applying Platt scaling (<code>probability=True</code>) on SVC will provide calibrated confidence intervals for ecological deployment.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="eyebrow">07 &bull; Project Team &amp; References</span>
+            <h2>ES 335 &bull; Machine Learning (IIT Gandhinagar)</h2>
+            <ul class="clean-list">
+              <li><strong>Team Members:</strong> Dev Kaushik Panchal (24110101) &amp; Bikram Maurya (24110077) &mdash; Group 31</li>
+              <li><strong>Dataset Reference:</strong> K. J. Piczak, <em>"ESC: Dataset for Environmental Sound Classification,"</em> ACM Multimedia, 2015.</li>
+              <li><strong>Reproducibility:</strong> Complete training notebook (<code>ml_project.ipynb</code>), serialized pipelines (<code>all_three_sound_classifiers.pkl</code>), and static inference weights (<code>models_export.json</code>) hosted in the project repository.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>ES 335 Machine Learning Project &bull; Wildlife &amp; Environmental Sound Classification (ESC-50)</span>
+      <span>Built for GitHub Pages &bull; 100% Client-Side Inference</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
