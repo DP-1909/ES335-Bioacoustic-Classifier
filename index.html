@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BioAcoustic ESC-50 Classifier | ES 335 Machine Learning Benchmark</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,600;6..72,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <!-- KaTeX for Publication-Grade Mathematical Notation -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -12,7 +15,7 @@
     onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
 </head>
 <body>
-  <!-- Sticky Academic Header -->
+  <!-- Sticky Editorial Header -->
   <header class="navbar">
     <div class="container nav-inner">
       <a href="#top" class="brand">
@@ -31,41 +34,41 @@
   </header>
 
   <main id="top">
-    <!-- Hero Section matching Publication-Grade Reference Layout -->
+    <!-- Hero Section -->
     <section class="hero">
       <div class="container">
-        <div class="pill">Indian Institute of Technology Gandhinagar &bull; ES 335: Machine Learning &bull; Group 31</div>
+        <div class="pill">Indian Institute of Technology Gandhinagar &bull; ES 335: Machine Learning</div>
         <h1>Comparing Machine Learning Approaches for Wildlife &amp; Environmental Sound Classification</h1>
         <p class="lead">
           Controlled benchmark of Regularized Logistic Regression, RBF-Kernel Support Vector Machines, and Random Forest
           on 760 five-second recordings across 19 ESC-50 wildlife and natural soundscape categories.
         </p>
 
-        <!-- Authors, Roll Numbers & Emails -->
+        <!-- Authors (Bikram Maurya First) -->
         <div class="author-row">
-          <div class="author-item">
-            <strong>Dev Kaushik Panchal</strong> <span class="roll-num">24110101</span>
-            <a href="mailto:dev.panchal@iitgn.ac.in">dev.panchal@iitgn.ac.in</a>
-          </div>
           <div class="author-item">
             <strong>Bikram Maurya</strong> <span class="roll-num">24110077</span>
             <a href="mailto:24110077@iitgn.ac.in">24110077@iitgn.ac.in</a>
           </div>
+          <div class="author-item">
+            <strong>Dev Kaushik Panchal</strong> <span class="roll-num">24110101</span>
+            <a href="mailto:dev.panchal@iitgn.ac.in">dev.panchal@iitgn.ac.in</a>
+          </div>
         </div>
 
-        <!-- External & Interactive Action Buttons -->
+        <!-- Direct Action Links -->
         <div class="hero-actions">
           <a href="https://github.com/DP-1909/ES335-Bioacoustic-Classifier" target="_blank" rel="noopener" class="btn btn-primary">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            <svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
             GitHub Repository
           </a>
           <a href="https://github.com/DP-1909/ES335-Bioacoustic-Classifier/blob/main/ml_project.ipynb" target="_blank" rel="noopener" class="btn btn-secondary">
             Jupyter Notebook
           </a>
-          <a href="#interactive" class="btn btn-dashed">Open the interactive suite &darr;</a>
+          <a href="#interactive" class="btn btn-dashed">Open Interactive Audio &amp; Model Lab &darr;</a>
         </div>
 
-        <!-- Top 4 Stat Boxes -->
+        <!-- Top 4 KPI Stat Boxes -->
         <div class="stat-bar">
           <div class="stat-box stat-box-accent">
             <span class="stat-val" id="hero-best-f1">56.68% Macro-F1</span>
@@ -91,7 +94,7 @@
     <section id="problem" class="section">
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow">Section 1 &bull; Problem Formulation &amp; Histological/Acoustic Data Audit</span>
+          <span class="eyebrow">Section 1 &bull; Problem Formulation &amp; Acoustic Data Audit</span>
           <h2>Research Question, "One Row of Data" &amp; ESC-50 Cohort</h2>
           <p>
             Passive acoustic monitoring enables continuous, non-invasive biodiversity tracking across remote habitats without human field observers, but requires compact classifiers that distinguish overlapping biological vocalizations from ambient weather textures.
@@ -120,7 +123,7 @@
         </div>
 
         <!-- Dataset Source, Quality Audit & 19 Categories -->
-        <div class="grid-2 mt-24">
+        <div class="grid-2 mt-28">
           <div class="card">
             <h3>Dataset Provenance &amp; Quality Audit</h3>
             <ul class="clean-list">
@@ -210,12 +213,12 @@
           </table>
         </div>
 
-        <div class="callout-box mt-16">
+        <div class="callout-box mt-20">
           <strong>Zero-Leakage Scaling Protocol:</strong> Because <code>Spectral Centroid</code> ($\sim 10^3\text{ Hz}$) and <code>Zero-Crossing Rate</code> ($\sim 10^{-2}$) span five orders of magnitude, Euclidean distances in RBF-SVM and $L_2$ penalties in Logistic Regression would be dominated by Hz-scale features. We apply $z = (x - \mu_{\text{train}}) / \sigma_{\text{train}}$ inside <code>sklearn.pipeline.Pipeline</code> so $\mu_{\text{train}}$ and $\sigma_{\text{train}}$ are estimated <strong>strictly on training folds</strong> and never touch validation or outer test folds.
         </div>
 
         <!-- EDA & Feature Importance Visuals -->
-        <div class="grid-2 mt-24">
+        <div class="grid-2 mt-28">
           <div class="card">
             <div class="card-top">
               <h3>2D PCA Projection ($42.87\%$ Variance Retained)</h3>
@@ -282,11 +285,10 @@
         </div>
 
         <!-- Master Nested CV Benchmark Table -->
-        <div class="table-wrap card mt-24">
+        <div class="table-wrap card mt-28">
           <table class="data-table">
             <thead>
               <tr>
-                <th>Rank</th>
                 <th>Model Family</th>
                 <th>Preprocessing</th>
                 <th>Tuned Hyperparameters</th>
@@ -300,7 +302,7 @@
         </div>
 
         <!-- Fold-by-Fold Chart -->
-        <div class="card mt-24">
+        <div class="card mt-28">
           <h3>Fold-by-Fold Macro-F1 Generalization Across Predefined ESC-50 Folds (1–5)</h3>
           <p class="muted-sm">
             Why Macro-F1? Although classes are balanced ($40\text{/class}$), Macro-F1 $\frac{1}{19}\sum_{c=1}^{19} F_{1,c}$ penalizes models that sacrifice hard soundscapes (e.g., <em>wind</em>) to over-predict easy ones (e.g., <em>crickets</em>).
@@ -336,7 +338,7 @@
           </div>
         </div>
 
-        <div class="grid-3 mt-24">
+        <div class="grid-3 mt-28">
           <div class="card">
             <h3>Error Mode 1: Broadband Water &amp; Wind Overlap</h3>
             <p>
@@ -385,12 +387,12 @@
               <div id="clip-meta" class="clip-meta"></div>
             </div>
 
-            <h3 class="mt-20">2. Acoustic Feature Perturbation Controls</h3>
+            <h3 class="mt-24">2. Acoustic Feature Perturbation Controls</h3>
             <p class="muted-sm">
               Modify spectral, temporal, or cepstral features below to run live client-side inference:
             </p>
             <div id="sliders-primary" class="sliders-grid"></div>
-            <details class="mt-12">
+            <details class="mt-16">
               <summary class="summary-toggle">Expand Remaining Cepstral Features (MFCC 5–13)</summary>
               <div id="sliders-secondary" class="sliders-grid mt-12"></div>
             </details>
@@ -474,10 +476,10 @@
           </div>
         </div>
 
-        <div class="card mt-24">
+        <div class="card mt-28">
           <h3>Team Contributions, AI Disclosure &amp; Academic References</h3>
           <ul class="clean-list">
-            <li><strong>Team Work Distribution (Group 31):</strong> <strong>Dev Kaushik Panchal (24110101)</strong> led the <code>librosa</code> 17-feature extraction pipeline, leak-free 5-fold nested cross-validation setup, RBF-SVM/Random Forest tuning, and browser inference serialization; <strong>Bikram Maurya (24110077)</strong> led ESC-50 dataset curation and quality auditing, 2D PCA exploratory analysis, Logistic Regression baseline benchmarking, and confusion-matrix error analysis.</li>
+            <li><strong>Team Work Distribution:</strong> <strong>Bikram Maurya (24110077)</strong> led ESC-50 dataset curation and quality auditing, 2D PCA exploratory analysis, Logistic Regression baseline benchmarking, and confusion-matrix error analysis; <strong>Dev Kaushik Panchal (24110101)</strong> led the <code>librosa</code> 17-feature extraction pipeline, leak-free 5-fold nested cross-validation setup, RBF-SVM/Random Forest tuning, and browser inference serialization.</li>
             <li><strong>Tools &amp; AI-Use Disclosure:</strong> Built using Python (<code>librosa</code>, <code>scikit-learn</code>, <code>numpy</code>, <code>pandas</code>), KaTeX, and vanilla HTML5/CSS3/ES6 JavaScript. Generative AI assistance (Google Gemini) was utilized to help structure the static web interface and debug JSON model serialization; all experimental splits, metrics, and model outputs were independently executed and verified in our Python notebook.</li>
             <li><strong>Dataset &amp; Software Citations:</strong> (1) K. J. Piczak, <em>"ESC: Dataset for Environmental Sound Classification,"</em> Proc. ACM Multimedia, pp. 1015–1018, 2015. (2) B. McFee et al., <em>"librosa: Audio and Music Signal Analysis in Python,"</em> Proc. SciPy, 2015. (3) F. Pedregosa et al., <em>"Scikit-learn: Machine Learning in Python,"</em> JMLR 12, pp. 2825–2830, 2011.</li>
           </ul>
@@ -488,7 +490,7 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <span>ES 335: Machine Learning &bull; IIT Gandhinagar &bull; Group 31</span>
+      <span>ES 335: Machine Learning &bull; IIT Gandhinagar &bull; Bikram Maurya &amp; Dev Kaushik Panchal</span>
       <span><a href="https://github.com/DP-1909/ES335-Bioacoustic-Classifier" target="_blank" rel="noopener">GitHub Repository</a> &bull; 100% Client-Side Inference</span>
     </div>
   </footer>
